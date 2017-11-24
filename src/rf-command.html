@@ -3,19 +3,24 @@
         category: 'Radio',
         color: '#a6bbcf',
         defaults: {
-           gpio: {value:"7"}
+           gpio: {value:7},
+           initSeq: {value: true},
+           cmdLength: {value: 40},
+           initTimeHigh: {value: 200},
+           initTimeLow: {value: 200},
         },
         inputs:1,
         outputs:0,
 //        icon: "file.png",
         label: function() {
-            return this.name||"rf-command";
-        }
+            return "RF Emit";
+        },
+        inputLabels: "command"
     });
     function useInit() {
-        $("#node-input-init-time-high").prop( "disabled", !$("#node-input-init-seq").prop( "checked"));
-        $("#node-input-init-time-low").prop( "disabled", !$("#node-input-init-seq").prop( "checked"));
-        $("#node-input-cmd-length").prop( "disabled", !$("#node-input-init-seq").prop( "checked"));
+        $("#node-input-initTimeHigh").prop( "disabled", !$("#node-input-initSeq").prop( "checked"));
+        $("#node-input-initTimeLow").prop( "disabled", !$("#node-input-initSeq").prop( "checked"));
+        $("#node-input-cmdLength").prop( "disabled", !$("#node-input-initSeq").prop( "checked"));
     }
 </script>
 <style>
@@ -34,21 +39,21 @@
         </div>
 
         <div class="form-row">
-            <input type="checkbox" id="node-input-init-seq" style="width:10px; margin: 0" onclick="useInit()" checked>
-            <label for="node-input-init-seq" style="width:95%; border-bottom: 1px solid #eee;"><span> Init sequence</span></label>
+            <input type="checkbox" id="node-input-initSeq" style="width:10px; margin: 0" onclick="useInit()" checked>
+            <label for="node-input-initSeq" style="width:95%; border-bottom: 1px solid #eee;"><span> Init sequence</span></label>
         </div>
         <div class="ident">
               <div class="form-row">
-                <label for="node-input-cmd-length"><i class="icon-resize-horizontal"></i> Length</label>
-                <input type="number" id="node-input-cmd-length" placeholder="Nr. of bits">
+                <label for="node-input-cmdLength"><i class="icon-resize-horizontal"></i> Length</label>
+                <input type="number" id="node-input-cmdLength" placeholder="Nr. of bits">
             </div>
             <div class="form-row" >
-                <label for="node-input-init-time-high"><i class="icon-plus-sign"></i>Time (&#181;s) high</label>
-                <input type="number" id="node-input-init-time-high" placeholder="Initialisation time high">
+                <label for="node-input-initTimeHigh"><i class="icon-plus-sign"></i>Time (&#181;s) high</label>
+                <input type="number" id="node-input-initTimeHigh" placeholder="Initialisation time high">
             </div>
             <div class="form-row">
-                <label for="node-input-init-time-low"><i class="icon-minus-sign"></i>Time (&#181;s) low</label>
-                <input type="number" id="node-input-init-time-low" placeholder="Initialisation time low">
+                <label for="node-input-initTimeLow"><i class="icon-minus-sign"></i>Time (&#181;s) low</label>
+                <input type="number" id="node-input-initTimeLow" placeholder="Initialisation time low">
             </div>
         </div>
     </div>

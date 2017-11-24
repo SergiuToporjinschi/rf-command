@@ -5,7 +5,9 @@ module.exports = function(RED) {
         var node = this;
         node.on('input', function(msg) {
             //msg.payload = "test";
+            console.log(config);
             console.log(config.gpio);
+            console.log(config.initSeq);
             rf.setGPIO(config.gpio);
             node.send(null);
         });
