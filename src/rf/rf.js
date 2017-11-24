@@ -1,10 +1,10 @@
 var exports = module.exports = {};
-var gpio = require('rpi-gpio');
+//var gpio = require('rpi-gpio');
 
 exports.setGPIO(function (gpioNr) {
-    gpio.setup(gpioNr, gpio.DIR_LOW, function (err) {
-        if (err) throw err;
-    });
+//    gpio.setup(gpioNr, gpio.DIR_LOW, function (err) {
+//        if (err) throw err;
+//    });
 });
 
 exports.writeBite(function (onOrOff) {
