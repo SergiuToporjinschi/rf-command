@@ -2,11 +2,7 @@
     "name": "node-red-contrib-rf-command",
     "version": "0.0.1",
     "keywords": [
-        "util",
-        "functional",
-        "server",
-        "client",
-        "browser"
+        "RF433"
     ],
     "author": "toporjinschi",
     "contributors": [],
