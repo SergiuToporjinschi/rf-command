@@ -2,11 +2,15 @@
     "name": "node-red-contrib-rf-command",
     "version": "0.0.1",
     "keywords": [
-        "RF433"
+        "RF433",
+        "node-red"
     ],
     "author": "toporjinschi",
     "contributors": [],
-    "keywords": [ "node-red" ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tzapu/node-red-contrib-blynk.git"
+    },
     "node-red": {
         "nodes": {
             "rf-command": "src/rf-command.js"
