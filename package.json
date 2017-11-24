@@ -1,0 +1,22 @@
+{
+    "name": "node-red-contrib-rf-command",
+    "version": "0.0.1",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "toporjinschi",
+    "contributors": [],
+    "keywords": [ "node-red" ],
+    "node-red": {
+        "nodes": {
+            "rf-command": "src/rf-command.js"
+        }
+    },
+    "scripts": {
+        "start": "node src/rf-command.js"
+    }
+}
