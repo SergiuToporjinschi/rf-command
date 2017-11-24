@@ -12,15 +12,77 @@
             return this.name||"rf-command";
         }
     });
+    function useInit() {
+        $("#node-input-init-time-high").prop( "disabled", !$("#node-input-init-seq").prop( "checked"));
+        $("#node-input-init-time-low").prop( "disabled", !$("#node-input-init-seq").prop( "checked"));
+        $("#node-input-cmd-length").prop( "disabled", !$("#node-input-init-seq").prop( "checked"));
+    }
 </script>
-
+<style>
+    .tf-command .form-row label {
+        width: 120px;
+    }
+    .tf-command .ident {
+        padding-left: 20px;
+    }
+</style>
 <script type="text/x-red" data-template-name="rf-command">
-    <div class="form-row">
-        <label for="node-input-gpio"><i class="icon-tag"></i> GPIO</label>
-        <input type="number" id="node-input-gpio" placeholder="GPIO">
+    <div class="tf-command">
+        <div class="form-row">
+            <label for="node-input-gpio"><i class="icon-tag"></i> GPIO</label>
+            <input type="number" id="node-input-gpio" placeholder="GPIO">
+        </div>
+
+        <div class="form-row">
+            <input type="checkbox" id="node-input-init-seq" style="width:10px; margin: 0" onclick="useInit()" checked>
+            <label for="node-input-init-seq" style="width:95%; border-bottom: 1px solid #eee;"><span> Init sequence</span></label>
+        </div>
+        <div class="ident">
+              <div class="form-row">
+                <label for="node-input-cmd-length"><i class="icon-resize-horizontal"></i> Length</label>
+                <input type="number" id="node-input-cmd-length" placeholder="Nr. of bits">
+            </div>
+            <div class="form-row" >
+                <label for="node-input-init-time-high"><i class="icon-plus-sign"></i>Time (&#181;s) high</label>
+                <input type="number" id="node-input-init-time-high" placeholder="Initialisation time high">
+            </div>
+            <div class="form-row">
+                <label for="node-input-init-time-low"><i class="icon-minus-sign"></i>Time (&#181;s) low</label>
+                <input type="number" id="node-input-init-time-low" placeholder="Initialisation time low">
+            </div>
+        </div>
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="rf-command">
-    <p>A simple node that converts the message payloads into all lower-case characters</p>
+    <p>A node that is sending a binary over RF emitter connected to specified GPIO</p>
+    <h3>Properties</h3>
+        <dl class="message-properties">
+            <dt>GPIO <span class="property-type">integer</span></dt>
+            <dd>  Pin number of the RF emitter.</dd>
+        </dl>
+        <dl class="message-properties">
+            <dt>Init sequence <span class="property-type">boolean</span></dt>
+            <dd>  If is active then is repeating an initialisation sequence once at a fix number of bits</dd>
+        </dl>
+        <dl class="message-properties">
+            <dt>length <span class="property-type">integer</span></dt>
+            <dd>  Length of a command; <br>
+                Ex.: if lenth is 3 and the payload is 9 the out put will look like this:
+                <pre>payload: 110100110 output:[init-sequence]110[init-sequence]100[init-sequence]110</pre>
+            </dd>
+        </dl>
+        <dl class="message-properties">
+            <dt>Time (&#181;s) high <span class="property-type">integer</span></dt>
+            <dd>  How much time will be signal up for initialisation sequence</dd>
+        </dl>
+        <dl class="message-properties">
+            <dt>Time (&#181;s) low <span class="property-type">integer</span></dt>
+            <dd>  How much time will be signal down for initialisation sequence</dd>
+        </dl>
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>payload<span class="property-type">string</span></dt>
+            <dd>  Binary sequence to emit. </dd>
+        </dl>
 </script>
