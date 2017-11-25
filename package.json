@@ -11,6 +11,10 @@
     "type": "git",
     "url": "https://github.com/SergiuToporjinschi/rf-command.git"
   },
+  "dependencies": {
+    "rpi-gpio": "*",
+    "async": "*"
+  },
   "node-red": {
     "nodes": {
       "rf-command": "src/rf-command.js"
