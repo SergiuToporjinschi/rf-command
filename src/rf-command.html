@@ -7,7 +7,11 @@
            initSeq: {value: true},
            cmdLength: {value: 40},
            initTimeHigh: {value: 200},
-           initTimeLow: {value: 200}
+           initTimeLow: {value: 200},
+           highTime1: {value: 300},
+           lowTime1: {value: 300},
+           highTime0: {value: 300},
+           lowTime0: {value: 300}
         },
         inputs:1,
         outputs:1,
@@ -55,6 +59,28 @@
                 <label for="node-input-initTimeLow"><i class="icon-minus-sign"></i>Time (&#181;s) low</label>
                 <input type="number" id="node-input-initTimeLow" placeholder="Initialisation time low">
             </div>
+        </div>
+
+        <div class="form-row">
+            <label style="width:95%; border-bottom: 1px solid #eee;"><span> Bit timing</span></label>
+        </div>
+        <div class="ident">
+            <div class="form-row">
+                <label for="node-input-cmdLength"><i class="icon-resize-horizontal"></i> 1 high time</label>
+                <input type="number" id="node-input-highTime1" placeholder="(&#181;s)">
+            </div>
+            <div class="form-row" >
+                <label for="node-input-initTimeHigh"><i class="icon-resize-horizontal"></i> 1 low time</label>
+                <input type="number" id="node-input-lowTime1" placeholder="(&#181;s">
+            </div>
+            <div class="form-row">
+                <label for="node-input-cmdLength"><i class="icon-resize-horizontal"></i> 0 high time</label>
+                <input type="number" id="node-input-highTime0" placeholder="(&#181;s)">
+            </div>
+            <div class="form-row" >
+                <label for="node-input-initTimeHigh"><i class="icon-resize-horizontal"></i> 0 low time</label>
+                <input type="number" id="node-input-lowTime0" placeholder="(&#181;s">
+            </div>    
         </div>
     </div>
 </script>
