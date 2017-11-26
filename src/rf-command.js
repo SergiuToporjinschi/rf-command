@@ -8,11 +8,11 @@ module.exports = function (RED) {
         if (!conf.initSeq) {
             return;
         }
-        node.send({payload: "1"});
-        sleep.usleep(conf.initTimeHigh);
+        node.send({payload: 1});
+        sleep.usleep(parseInt(conf.initTimeHigh));
 
-        node.send({payload: "0"});
-        sleep.usleep(conf.initTimeLow);
+        node.send({payload: 0});
+        sleep.usleep(parseInt(conf.initTimeLow));
     }
 
     function sendCommand(cmd, conf, node) {
@@ -23,16 +23,16 @@ module.exports = function (RED) {
             }
             if (cmd[i] === '1') {
                 sentCount++;
-                node.send({payload: "1"});
-                sleep.usleep(conf.highTime1);
-                node.send({payload: "0"});
-                sleep.usleep(conf.lowTime1);
+                node.send({payload: 1});
+                sleep.usleep(parseInt(conf.highTime1));
+                node.send({payload: 0});
+                sleep.usleep(parseInt(conf.lowTime1));
             } else if (cmd[i] === '0') {
                 sentCount++;
-                node.send({payload: "1"});
-                sleep.usleep(conf.highTime0);
-                node.send({payload: "0"});
-                sleep.usleep(conf.lowTime0);
+                node.send({payload: 1});
+                sleep.usleep(parseInt(conf.highTime0));
+                node.send({payload: 0});
+                sleep.usleep(parseInt(conf.lowTime0));
             }
         }
         console.log(sentCount);
