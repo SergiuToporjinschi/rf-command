@@ -1,30 +1,31 @@
 <script type="text/javascript">
-    RED.nodes.registerType('rf-command',{
+    RED.nodes.registerType('rf-command', {
         category: 'Radio',
         color: '#a6bbcf',
         defaults: {
-           gpio: {value:7},
-           initSeq: {value: true},
-           cmdLength: {value: 40},
-           initTimeHigh: {value: 200},
-           initTimeLow: {value: 200},
-           highTime1: {value: 300},
-           lowTime1: {value: 300},
-           highTime0: {value: 300},
-           lowTime0: {value: 300}
+            gpioType: {value: 'BCM'},
+            gpio: {value: 7},
+            repeater: {value: 3},
+            repeaterPause: {value: 8064},
+            initSeq: {value: true},
+            cmdLength: {value: 40},
+            initTimeHigh: {value: 200},
+            initTimeLow: {value: 200},
+            bitLongTime: {value: 300},
+            bitShortTime: {value: 300}
         },
-        inputs:1,
-        outputs:1,
+        inputs: 1,
+        outputs: 1,
         icon: " bridge.png",
-        label: function() {
+        label: function () {
             return "RF Emit";
         },
         inputLabels: "command"
     });
     function useInit() {
-        $("#node-input-initTimeHigh").prop( "disabled", !$("#node-input-initSeq").prop( "checked"));
-        $("#node-input-initTimeLow").prop( "disabled", !$("#node-input-initSeq").prop( "checked"));
-        $("#node-input-cmdLength").prop( "disabled", !$("#node-input-initSeq").prop( "checked"));
+        $("#node-input-initTimeHigh").prop("disabled", !$("#node-input-initSeq").prop("checked"));
+        $("#node-input-initTimeLow").prop("disabled", !$("#node-input-initSeq").prop("checked"));
+        $("#node-input-cmdLength").prop("disabled", !$("#node-input-initSeq").prop("checked"));
     }
 </script>
 <style>
@@ -38,10 +39,24 @@
 <script type="text/x-red" data-template-name="rf-command">
     <div class="tf-command">
         <div class="form-row">
+            <label for="node-input-gpioType"><i class="icon-tag"></i> GPIO Type</label>
+            <select id="node-input-gpioType">
+                <option value="BCM">BCM</option>
+                <option value="BOARD">BOARD</option>
+            </select>
+        </div>
+        <div class="form-row">
             <label for="node-input-gpio"><i class="icon-tag"></i> GPIO</label>
             <input type="number" id="node-input-gpio" placeholder="GPIO">
         </div>
-
+        <div class="form-row">
+            <label for="node-input-repeater"><i class="icon-tag"></i> Repeat</label>
+            <input type="number" id="node-input-repeater" placeholder="Number of attempts">
+        </div>
+        <div class="form-row">
+            <label for="node-input-repeaterPause"><i class="icon-tag"></i> Pause (&#181;s)</label>
+            <input type="number" id="node-input-repeaterPause" placeholder="&#181;s">
+        </div>
         <div class="form-row">
             <input type="checkbox" id="node-input-initSeq" style="width:10px; margin: 0" onclick="useInit()" checked>
             <label for="node-input-initSeq" style="width:95%; border-bottom: 1px solid #eee;"><span> Init sequence</span></label>
@@ -66,21 +81,13 @@
         </div>
         <div class="ident">
             <div class="form-row">
-                <label for="node-input-cmdLength"><i class="icon-resize-horizontal"></i> 1 high time</label>
-                <input type="number" id="node-input-highTime1" placeholder="(&#181;s)">
+                <label for="node-input-bitLongTime"><i class="icon-resize-horizontal"></i>Long time (&#181;s)</label>
+                <input type="number" id="node-input-bitLongTime" placeholder="&#181;s">
             </div>
             <div class="form-row" >
-                <label for="node-input-initTimeHigh"><i class="icon-resize-horizontal"></i> 1 low time</label>
-                <input type="number" id="node-input-lowTime1" placeholder="(&#181;s">
+                <label for="node-input-bitShortTime:"><i class="icon-resize-horizontal"></i>Short time (&#181;s)</label>
+                <input type="number" id="node-input-bitShortTime" placeholder="&#181;s">
             </div>
-            <div class="form-row">
-                <label for="node-input-cmdLength"><i class="icon-resize-horizontal"></i> 0 high time</label>
-                <input type="number" id="node-input-highTime0" placeholder="(&#181;s)">
-            </div>
-            <div class="form-row" >
-                <label for="node-input-initTimeHigh"><i class="icon-resize-horizontal"></i> 0 low time</label>
-                <input type="number" id="node-input-lowTime0" placeholder="(&#181;s">
-            </div>    
         </div>
     </div>
 </script>
@@ -88,32 +95,32 @@
 <script type="text/x-red" data-help-name="rf-command">
     <p>A node that is sending a binary over RF emitter connected to specified GPIO</p>
     <h3>Properties</h3>
-        <dl class="message-properties">
-            <dt>GPIO <span class="property-type">integer</span></dt>
-            <dd>  Pin number of the RF emitter.</dd>
-        </dl>
-        <dl class="message-properties">
-            <dt>Init sequence <span class="property-type">boolean</span></dt>
-            <dd>  If is active then is repeating an initialisation sequence once at a fix number of bits</dd>
-        </dl>
-        <dl class="message-properties">
-            <dt>length <span class="property-type">integer</span></dt>
-            <dd>  Length of a command; <br>
-                Ex.: if lenth is 3 and the payload is 9 the out put will look like this:
-                <pre>payload: 110100110 output:[init-sequence]110[init-sequence]100[init-sequence]110</pre>
-            </dd>
-        </dl>
-        <dl class="message-properties">
-            <dt>Time (&#181;s) high <span class="property-type">integer</span></dt>
-            <dd>  How much time will be signal up for initialisation sequence</dd>
-        </dl>
-        <dl class="message-properties">
-            <dt>Time (&#181;s) low <span class="property-type">integer</span></dt>
-            <dd>  How much time will be signal down for initialisation sequence</dd>
-        </dl>
+    <dl class="message-properties">
+    <dt>GPIO <span class="property-type">integer</span></dt>
+    <dd>  Pin number of the RF emitter.</dd>
+    </dl>
+    <dl class="message-properties">
+    <dt>Init sequence <span class="property-type">boolean</span></dt>
+    <dd>  If is active then is repeating an initialisation sequence once at a fix number of bits</dd>
+    </dl>
+    <dl class="message-properties">
+    <dt>length <span class="property-type">integer</span></dt>
+    <dd>  Length of a command; <br>
+    Ex.: if lenth is 3 and the payload is 9 the out put will look like this:
+    <pre>payload: 110100110 output:[init-sequence]110[init-sequence]100[init-sequence]110</pre>
+    </dd>
+    </dl>
+    <dl class="message-properties">
+    <dt>Time (&#181;s) high <span class="property-type">integer</span></dt>
+    <dd>  How much time will be signal up for initialisation sequence</dd>
+    </dl>
+    <dl class="message-properties">
+    <dt>Time (&#181;s) low <span class="property-type">integer</span></dt>
+    <dd>  How much time will be signal down for initialisation sequence</dd>
+    </dl>
     <h3>Inputs</h3>
-        <dl class="message-properties">
-            <dt>payload<span class="property-type">string</span></dt>
-            <dd>  Binary sequence to emit. </dd>
-        </dl>
+    <dl class="message-properties">
+    <dt>payload<span class="property-type">string</span></dt>
+    <dd>  Binary sequence to emit. </dd>
+    </dl>
 </script>

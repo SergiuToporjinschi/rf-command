@@ -1,63 +1,21 @@
-var rf = require('./rf/rf');
-var sleep = require('sleep');
-
+var ExecShell = require('./ExecShell');
 module.exports = function (RED) {
-
-    function sendInit(conf, node) {
-        console.log("sending init");
-        if (!conf.initSeq) {
-            return;
-        }
-        node.send({payload: 1});
-        sleep.usleep(parseInt(conf.initTimeHigh));
-
-        node.send({payload: 0});
-        sleep.usleep(parseInt(conf.initTimeLow));
-    }
-
-    function sendCommand(cmd, conf, node) {
-        var sentCount = 0;
-        for (var i in cmd) {
-            if (conf.initSeq && sentCount == conf.cmdLength) {
-                sendInit(conf, node);
-            }
-            if (cmd[i] === '1') {
-                sentCount++;
-                node.send({payload: 1});
-                sleep.usleep(parseInt(conf.highTime1));
-                node.send({payload: 0});
-                sleep.usleep(parseInt(conf.lowTime1));
-            } else if (cmd[i] === '0') {
-                sentCount++;
-                node.send({payload: 1});
-                sleep.usleep(parseInt(conf.highTime0));
-                node.send({payload: 0});
-                sleep.usleep(parseInt(conf.lowTime0));
-            }
-        }
-        console.log(sentCount);
-    }
-
-    function LowerCaseNode(config) {
+    function RFCommand(config) {
         RED.nodes.createNode(this, config);
-        var node = this;
-        node.on('input', function (msg) {
-            console.log(config);
-            sendInit(config, node);
-            sendCommand(msg.payload, config, node);
-            console.log('Finished');
-            //rf.setGPIO(config.gpio);
-            node.send(null);
+        var self = this;
+        var exec = new ExecShell(RED.settings.userDir);
+        self.on('input', function (msg) {
+            try {
+                exec.init(config,
+                        function (msg) {
+                            this.send({payload: msg});
+                        }.bind(self));
+                exec.do(msg.payload.split(' ').join(''));
+            } catch (error) {
+                RED.log.error(error);
+            }
+            self.send(null);
         });
     }
-    RED.nodes.registerType("rf-command", LowerCaseNode);
+    RED.nodes.registerType("rf-command", RFCommand);
 };
-
-
-//var gpio = require('rpi-gpio');
-//gpio.setup(7, gpio.DIR_IN, readInput);
-//function readInput() {
-//    gpio.read(7, function(err, value) {
-//        console.log('The value is ' + value);
-//    });
-//}
