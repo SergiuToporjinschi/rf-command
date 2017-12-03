@@ -10,7 +10,7 @@ ExecShell.prototype.init = function (config, out) {
 
 ExecShell.prototype.getParams = function (config) {
     var params = [];
-    console.log(config);
+
     if (config.initSeq && (!config.initTimeHigh || !config.initTimeHigh)) {
         throw 'Init sequence is active but not configured';
     } else {
@@ -51,8 +51,6 @@ ExecShell.prototype.getParams = function (config) {
         params.push('-l' + Number.parseFloat(config.bitShortTime));
     }
 
-    console.log('----params----');
-    console.log(params);
     return params;
 };
 
