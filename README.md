@@ -9,7 +9,7 @@
 
 # rf-command
 
-Offers possibility to send a binary code via radio waves. I personally use for controlling different IOT devices by radio. 
+Offers possibility to send a binary code via radio waves. I'm personally using this for controlling different IOT devices by radio. 
 
 Code is tested with [this device](http://www.electrodragon.com/product/433m-rf-wireless-transmitter-module/) on Node red installed on a PaspberryPi II.
 
