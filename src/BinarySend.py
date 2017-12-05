@@ -3,17 +3,17 @@ from time import sleep
 import sys
 import getopt
 
-pin = 4
-cmd = '10000101 00110001 01010010 10000001 00010001'
+pin = -1
+cmd = ''
 initSeq = True
-initHigh = 0.004664
-initLow = 0.001540
+initHigh = 0
+initLow = 0
 boardType = GPIO.BCM
-durataBitScurta = 0.000356
-durataBitLunga = 0.000712
+durataBitScurta = 0
+durataBitLunga = 0
 
-NUM_ATTEMPTS = 3
-extended_delay = 0.008064
+nAttempts = 3
+extended_delay = 0
 
 def init_code(): 
 	print 'init seq'
@@ -37,9 +37,9 @@ def transmit_code():
 			sleep(durataBitLunga)
 
 def setupPin():
-        GPIO.setwarnings(False) 
 	print 'setupPin'
-	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
+	GPIO.setmode(boardType)
 	GPIO.setup(pin, GPIO.OUT)
 	GPIO.output(pin, 0)
 	sleep(0.05)
@@ -47,8 +47,8 @@ def setupPin():
 def do():
 	print 'do'
 	setupPin()
-	for t in range(NUM_ATTEMPTS):
-		print 'attempt: ' + str(t)
+	for t in range(nAttempts):
+		print 'attempt: ' + str(t + 1)
  		init_code()
 		transmit_code()
 		sleep(extended_delay)
@@ -59,7 +59,7 @@ def end():
 def usage():
 	print '-h : Help'
 	#print '-c : Binary command'
-	#print '-b nb : Command length (number of bits)'
+	#print '-b : Command length (number of bits)'
 	print '--------------------------------------'
 	print '-p : Pin number default 7'
 	print '-t : Pin type (BCM|BOARD) default BCM'
@@ -81,32 +81,42 @@ def main(argsv):
 		usage()
 		sys.exit(2)
 	for opt, arg in opts:
-		print 'test: ' + arg
 		if opt == '-h':
 			usage()
 			sys.exit()
 		elif opt == '-p':
-			pin = arg
-		elif opt == '-t' and arg.upper() != 'BOARD':
-			boardType = GPIO.BCM
-			if arg.upper() != 'board':
+			global pin
+			pin = int(arg)
+		elif opt == '-t':
+			print arg
+			if arg.upper() == 'BOARD':
+				boardType = GPIO.BOARD
+			else:
 				boardType = GPIO.BCM
-		elif opt == '-o' and arg.upper() == 'TRUE':
-			initSeq = True
+		elif opt == '-o':
+			global initSeq
+			initSeq = arg.upper() == 'TRUE'
 		elif opt == '-d':
-			initLow = int(arg) / 1000000
+			global initLow
+			initLow = float(arg) / 1000000
 		elif opt == '-u':
-			initHigh == int(arg) / 1000000
+			global initHigh
+			initHigh = float(arg) / 1000000
 		elif opt == '-l':
-			durataBitScurta = int(arg) / 1000000
+			global durataBitScurta
+			durataBitScurta = float(arg) / 1000000
 		elif opt == '-m':
-			durataBitLunga = int(arg) / 1000000
+			global durataBitLunga
+			durataBitLunga = float(arg) / 1000000
 		elif opt == '-n':
-			NUM_ATTEMPTS = int(arg)
+			global nAttempts
+			nAttempts = int(arg)
 		elif opt == '-e':
-			extended_delay = int(arg) / 1000000	
+			global extended_delay
+			extended_delay = float(arg) / 1000000
 	do()
 
 if (__name__ == "__main__"):
+	print sys.argv[2:]
 	cmd = sys.argv[1]
 	main(sys.argv[2:])

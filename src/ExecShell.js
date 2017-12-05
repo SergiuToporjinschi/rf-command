@@ -14,41 +14,53 @@ ExecShell.prototype.getParams = function (config) {
     if (config.initSeq && (!config.initTimeHigh || !config.initTimeHigh)) {
         throw 'Init sequence is active but not configured';
     } else {
-        params.push('-o' + config.initSeq);
+        params.push('-o ' + config.initSeq);
     }
 
     if (!config.gpio || Number.parseInt(config.gpio) <= 0) {
         throw 'GPIO needs to be a positive number';
     } else {
-        params.push('-p' + Number.parseInt(config.gpio));
+        params.push('-p ' + Number.parseInt(config.gpio));
     }
 
     if (config.gpioType) {
-        params.push('-t' + config.gpioType);
+        params.push('-t ' + config.gpioType);
     }
 
     if (Number.parseFloat(config.initTimeHigh) < 0) {
         throw 'Initialization bit timing needs to be >= 0';
     } else {
-        params.push('-u' + Number.parseFloat(config.initTimeHigh));
+        params.push('-u ' + Number.parseFloat(config.initTimeHigh));
     }
 
     if (Number.parseFloat(config.initTimeHigh) < 0) {
         throw 'Initialization bit timing needs to be >= 0';
     } else {
-        params.push('-d' + Number.parseFloat(config.initTimeLow));
+        params.push('-d ' + Number.parseFloat(config.initTimeLow));
     }
 
     if (Number.parseFloat(config.bitLongTime) < 0) {
         throw 'Bit timing needs to be >= 0';
     } else {
-        params.push('-m' + Number.parseFloat(config.bitLongTime));
+        params.push('-m ' + Number.parseFloat(config.bitLongTime));
     }
 
     if (Number.parseFloat(config.bitShortTime) < 0) {
         throw 'Bit timing needs to be >= 0';
     } else {
-        params.push('-l' + Number.parseFloat(config.bitShortTime));
+        params.push('-l ' + Number.parseFloat(config.bitShortTime));
+    }
+
+    if (Number.parseFloat(config.repeater) < 0) {
+        throw 'repeater needs to be >= 0';
+    } else {
+        params.push('-n ' + Number.parseFloat(config.repeater));
+    }
+
+    if (Number.parseFloat(config.repeaterPause) < 0) {
+        throw 'Repeater pause needs to be >= 0';
+    } else {
+        params.push('-e ' + Number.parseFloat(config.repeaterPause));
     }
 
     return params;
@@ -71,6 +83,10 @@ ExecShell.prototype.do = function (cmd) {
             this.out(msg.toString());
         }.bind(this));
     }
+    exec.stderr.on('data', function (error) {
+        this.status({fill:"red",shape:"ring",text:error.toString()});
+        this.out(error.toString());
+    }.bind(this));
 
     exec.on('close', function (code) {
         this.out('Shell closed with code:' + code);
