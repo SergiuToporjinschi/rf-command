@@ -3,7 +3,10 @@
   "version": "0.0.10",
   "keywords": [
     "node-red",
-    "RF433"
+    "RF433",
+    "wireless",
+    "communication",
+    "radio"
   ],
   "author": "toporjinschi",
   "contributors": [],
