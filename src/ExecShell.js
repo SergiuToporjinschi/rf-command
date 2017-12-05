@@ -1,5 +1,5 @@
 function ExecShell(userDir) {
-    this.file = userDir + '/node_modules/rf-command/src/BinarySend.py';
+    this.file = userDir + '/node_modules/node-red-contrib-rf-command/src/BinarySend.py';
     this.spawn = require('child_process').spawn;
 }
 
