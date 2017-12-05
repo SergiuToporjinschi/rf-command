@@ -14,6 +14,7 @@ Offers possibility to send a binary code via radio waves. I'm personally using t
 Code is tested with [this device](http://www.electrodragon.com/product/433m-rf-wireless-transmitter-module/) on Node red installed on a PaspberryPi II.
 
 The node contains a python script for sending the payload; 
+Python is mandatory;
 
 ## How RF comminication works 
   On RF, the bits are identify by how much time the signal is high and how much time nothing is emitted on that frequency.
