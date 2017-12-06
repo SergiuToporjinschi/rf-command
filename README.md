@@ -21,7 +21,7 @@ Python is mandatory;
 ## How RF comminication works 
   On RF, the bits are identify by how much time the signal is high and how much time nothing is emitted on that frequency.
   
-  For example: if in 1024 &#181;s we have 66% of the time, signal emitted and 33% of is silance, then is one. If we have 33% of the time signal and then 66% of the time silance then is zero. 
+  For example: if in 1024 &#181;s we have 66% of time, signal emitted and 33% of time silance, then is one. If we have 33% of time signal and then 66% of time silance then is zero. 
 
 ## Settings
 - **GPIO Type**: sets the type of pin specification; Can be BCM or BOARD more details [here](https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/#pin-numbering);
