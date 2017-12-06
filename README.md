@@ -1,4 +1,4 @@
-
+Offers possibility to send a binary code via radio waves. I'm personally using this for controlling different IOT devices by radio. 
 
 [![npm version](https://img.shields.io/npm/v/node-red-contrib-rf-command.svg?style=flat-square)](https://www.npmjs.com/package/node-red-contrib-rf-command)
 [![npm](https://img.shields.io/npm/dt/node-red-contrib-rf-command.svg)](https://www.npmjs.com/package/node-red-contrib-rf-command)
