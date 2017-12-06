@@ -14,6 +14,7 @@ durataBitLunga = 0
 
 nAttempts = 3
 extended_delay = 0
+cmdLen = 40
 
 def init_code(): 
 	print 'init seq'
@@ -22,15 +23,15 @@ def init_code():
 	GPIO.output(pin, 0)
 	sleep(initLow)
 
-def transmit_code():
+def transmit_code(command):
 	print 'transmit'
-	for i in range(1, len(cmd)+1):
-		if (cmd[i-1] == '1'):
+	for i in range(1, len(command)+1):
+		if (command[i-1] == '1'):
 			GPIO.output(pin, 1)
 			sleep(durataBitLunga)
 			GPIO.output(pin, 0)
 			sleep(durataBitScurta)
-		elif (cmd[i-1] == '0'):
+		elif (command[i-1] == '0'):
 			GPIO.output(pin, 1)
 			sleep(durataBitScurta)
 			GPIO.output(pin, 0)
@@ -44,14 +45,23 @@ def setupPin():
 	GPIO.output(pin, 0)
 	sleep(0.05)
 
-def do():
+def splitCommand(command):
+	ret = []
+	for i in range(0, len(command),cmdLen):
+		ret = ret + [command[i:i+cmdLen]];
+	return ret
+
+def do(command):
 	print 'do'
 	setupPin()
-	for t in range(nAttempts):
-		print 'attempt: ' + str(t + 1)
- 		init_code()
-		transmit_code()
-		sleep(extended_delay)
+	cmds = splitCommand(command)
+	for i in range(len(cmds)):
+		print 'cmd: ' +  cmds[i]
+		for t in range(nAttempts):
+			print 'attempt: ' + str(t + 1) + ' for command: ' + cmds[i]
+			init_code()
+			transmit_code(cmds[i])
+			sleep(extended_delay)
 
 def end():
 	GPIO.cleanup()
@@ -59,7 +69,7 @@ def end():
 def usage():
 	print '-h : Help'
 	#print '-c : Binary command'
-	#print '-b : Command length (number of bits)'
+	print '-b : Command length (number of bits)'
 	print '--------------------------------------'
 	print '-p : Pin number default 7'
 	print '-t : Pin type (BCM|BOARD) default BCM'
@@ -114,7 +124,10 @@ def main(argsv):
 		elif opt == '-e':
 			global extended_delay
 			extended_delay = float(arg) / 1000000
-	do()
+		elif opt == '-b':
+			global cmdLen
+			cmdLen = int(arg)
+	do(cmd)
 
 if (__name__ == "__main__"):
 	print sys.argv[2:]

@@ -63,6 +63,12 @@ ExecShell.prototype.getParams = function (config) {
         params.push('-e ' + Number.parseFloat(config.repeaterPause));
     }
 
+    if (Number.parseInt(config.cmdLength) < 0) {
+        throw 'Command length needs to be >= 0';
+    } else {
+        params.push('-b ' + Number.parseInt(config.cmdLength));
+    }
+
     return params;
 };
 
