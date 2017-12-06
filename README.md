@@ -33,3 +33,8 @@ Python is mandatory;
 - **Bit timing**: configures how the time is split for a single bit;
   - **Long time (&#181;s)**: How much time is consider a long part of a bit for example can be 66% from 1024 (or how much a bit takes for your device)
   - **Short time (&#181;s)**: How much time is consider a short part of a bit for example can be 33% from 1024
+
+## Changelog
+
+### v0.0.11 (December 5, 2017)
+* Allows sending multiple commands in same string as binary;
