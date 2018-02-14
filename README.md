@@ -38,7 +38,9 @@ Python is mandatory;
 
 ## Changelog
 
-### v1.0.0 (December 6, 2017)
+### v1.0.0 (February 14, 2017)
+* Stable release;
+### v0.1.0 (December 6, 2017)
 * Stable release;
 ### v0.0.11 (December 6, 2017)
 * Allows sending multiple commands in same string as binary;
