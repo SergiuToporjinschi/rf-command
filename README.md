@@ -5,8 +5,8 @@ Offers possibility to send a binary code via radio waves. I'm personally using t
 [![npm downloads](https://img.shields.io/npm/dm/node-red-contrib-rf-command.svg?style=flat-square)](https://www.npmjs.com/package/node-red-contrib-rf-command)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg)](https://github.com/SergiuToporjinschi/rf-command)
 [![GitHub last commit](https://img.shields.io/github/last-commit/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command)
-[![GitHub stars](https://img.shields.io/github/stars/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/watchers)
-[![GitHub watchers](https://img.shields.io/github/watchers/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/watchers)
 [![GitHub license](https://img.shields.io/github/license/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/blob/master/LICENSE)
 
 # rf-command
