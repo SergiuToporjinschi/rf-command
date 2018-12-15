@@ -8,6 +8,8 @@ Offers possibility to send a binary code via radio waves. I'm personally using t
 [![GitHub stars](https://img.shields.io/github/stars/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/watchers)
 [![GitHub license](https://img.shields.io/github/license/SergiuToporjinschi/rf-command.svg)](https://github.com/SergiuToporjinschi/rf-command/blob/master/LICENSE)
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/SergiuToporjinschi/rf-command)
+[![Package Quality](http://npm.packagequality.com/shield/node-red-contrib-rf-command.svg)](http://packagequality.com/#?package=node-red-contrib-rf-command)
 
 # rf-command
 
