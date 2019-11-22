@@ -100,7 +100,8 @@ def main(argsv):
 			pin = int(arg)
 		elif opt == '-t':
 			print arg
-			if arg.upper() == 'BOARD':
+			global boardType
+			if (arg.upper() == 'BOARD') or (arg.upper() == ' BOARD'):
 				boardType = GPIO.BOARD
 			else:
 				boardType = GPIO.BCM
