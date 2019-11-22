@@ -28,25 +28,25 @@ ExecShell.prototype.getParams = function (config) {
     }
 
     if (Number.parseFloat(config.initTimeHigh) < 0) {
-        throw 'Initialization bit timing needs to be >= 0';
+        throw 'Initialization bit timing high needs to be >= 0';
     } else {
         params.push('-u ' + Number.parseFloat(config.initTimeHigh));
     }
 
-    if (Number.parseFloat(config.initTimeHigh) < 0) {
-        throw 'Initialization bit timing needs to be >= 0';
+    if (Number.parseFloat(config.initTimeLow) < 0) {
+        throw 'Initialization bit timing low needs to be >= 0';
     } else {
         params.push('-d ' + Number.parseFloat(config.initTimeLow));
     }
 
     if (Number.parseFloat(config.bitLongTime) < 0) {
-        throw 'Bit timing needs to be >= 0';
+        throw 'Bit timing long needs to be >= 0';
     } else {
         params.push('-m ' + Number.parseFloat(config.bitLongTime));
     }
 
     if (Number.parseFloat(config.bitShortTime) < 0) {
-        throw 'Bit timing needs to be >= 0';
+        throw 'Bit timing short needs to be >= 0';
     } else {
         params.push('-l ' + Number.parseFloat(config.bitShortTime));
     }

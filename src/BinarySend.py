@@ -17,11 +17,12 @@ extended_delay = 0
 cmdLen = 40
 
 def init_code(): 
-	print 'init seq'
-	GPIO.output(pin, 1)
-	sleep(initHigh)
-	GPIO.output(pin, 0)
-	sleep(initLow)
+	if initSeq == True:
+		print 'init seq'
+		GPIO.output(pin, 1)
+		sleep(initHigh)
+		GPIO.output(pin, 0)
+		sleep(initLow)
 
 def transmit_code(command):
 	print 'transmit'
@@ -99,13 +100,17 @@ def main(argsv):
 			pin = int(arg)
 		elif opt == '-t':
 			print arg
-			if arg.upper() == 'BOARD':
+			global boardType
+			if (arg.upper() == 'BOARD') or (arg.upper() == ' BOARD'):
 				boardType = GPIO.BOARD
 			else:
 				boardType = GPIO.BCM
 		elif opt == '-o':
 			global initSeq
-			initSeq = arg.upper() == 'TRUE'
+			if (arg.upper() == 'TRUE') or (arg.upper() == ' TRUE'):
+				initSeq = True
+			else:
+				initSeq = False
 		elif opt == '-d':
 			global initLow
 			initLow = float(arg) / 1000000
